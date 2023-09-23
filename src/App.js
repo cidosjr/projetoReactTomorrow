@@ -1,25 +1,70 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {Component} from 'react';
+import Table from './Table'
+import Form from './Form'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    alunos: []
+  }
+
+  removerAluno = (index) => {
+    const {alunos} = this.state
+    this.setState(
+      {
+      alunos: alunos.filter((aluno, i) => {
+        return i !== index
+        })
+      }
+    )
+  }
+
+  handleSubmit = (alunoDisc) => {
+    this.setState({
+      alunos: [...this.state.alunos, alunoDisc]
+    })
+  }
+
+
+  render(){
+    const {alunos} = this.state
+
+    return (
+      <div className='container'>
+        <Table alunos = {alunos}
+               removerAluno={this.removerAluno}
+        />
+        <Form  handleSubmit={this.handleSubmit}/>
+      </div>
+    )
+  }
 }
 
 export default App;
+
+
+
+/**
+ {
+    alunos: [
+      {
+        nome: 'Dudu',
+        turma: 'Programação Web'
+      },
+      {
+        nome: 'Paty',
+        turma: 'Análise de Algoritmos'
+      },
+      {
+        nome: 'Joãozinho',
+        turma: 'Programação OO'
+      },
+      {
+        nome: 'Ju',
+        turma: 'Eng de Requisitos'
+      },
+
+    ]
+  }
+
+**/
